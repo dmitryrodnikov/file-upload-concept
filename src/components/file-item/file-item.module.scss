@@ -1,6 +1,5 @@
 .file {
-    border: 2px solid #ffffff;
-    //background-color: #ffffff33;
+    background-color: #ffffff33;
     margin-top: 10px;
     border-radius: 4px;
     box-sizing: border-box;
@@ -8,9 +7,13 @@
     transition: 200ms;
     position: relative;
     overflow: hidden;
+
+    .delete:hover {
+        opacity: 1;
+    }
 }
 
-.dataContainer {
+.container {
     position: absolute;
     left: 0;
     right: 0;
@@ -21,22 +24,22 @@
     pointer-events: none;
 }
 
-.dataContainer > * {
+.container > * {
     pointer-events: none;
 }
 
-.data {
+.content {
     display: flex;
     z-index: 10;
 }
 
-.fileData {
+.data {
     overflow: hidden;
     margin-right: 20px;
     pointer-events: none;
 }
 
-.fileName {
+.name {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -44,7 +47,7 @@
     color: #424356;
 }
 
-.fileMeta {
+.meta {
     display: flex;
     align-items: baseline;
     font-size: 13px;
@@ -83,10 +86,6 @@
         height: 8px;
         fill: black;
     }
-}
-
-.file .delete:hover {
-    opacity: 1;
 }
 
 .progressBar {

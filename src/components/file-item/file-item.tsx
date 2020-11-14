@@ -39,24 +39,18 @@ export const FileItem = ({
                 [styles.dragHover]: isDragHover,
                 [styles.loading]: status === FileStatus.LOADING,
             })}
-            onDragEnter={e => {
-                setDragHover(true);
-            }}
-            onDragLeave={e => {
-                console.log('LEAVE');
-                setDragHover(false);
-            }}
+            onDragEnter={() => setDragHover(true)}
+            onDragLeave={() => setDragHover(false)}
             onDrop={e => {
                 setDragHover(false);
                 onDrop?.(e);
-                console.info('drop file', e);
             }}
         >
-            <div className={styles.dataContainer}>
-                <div className={styles.data}>
-                    <div className={styles.fileData}>
-                        <div className={styles.fileName}>{name}</div>
-                        <div className={styles.fileMeta}>
+            <div className={styles.container}>
+                <div className={styles.content}>
+                    <div className={styles.data}>
+                        <div className={styles.name}>{name}</div>
+                        <div className={styles.meta}>
                             <div className={styles.size}>{byteSize(size).toString()}</div>
                             {status === FileStatus.LOADING && <div className={styles.loaded}>{loaded}%</div>}
                             {type}
