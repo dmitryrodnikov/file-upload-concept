@@ -12,11 +12,6 @@
     background-color: #cfd9ed;
 }
 
-.files-list {
-    display: flex;
-    flex-direction: column;
-}
-
 .suggest-column {
     width: 30%;
 }

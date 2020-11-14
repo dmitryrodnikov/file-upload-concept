@@ -2,10 +2,9 @@ import React, { useCallback, useState } from 'react';
 import './App.css';
 import { FileStatus, useFileUpload } from './hooks/use-file-upload';
 import axios from 'axios';
-import { FileItem } from './components/file-item/file-item';
 import { DropZone } from './components/dropzone/dropzone';
 import { SuggestList } from './components/suggest-list/suggest-list';
-import { FileType } from './components/file-type/file-type';
+import { FilesList } from './components/files-list/files-list';
 
 interface AppFileData {
     id: string;
@@ -89,37 +88,13 @@ function App() {
         <div className="container">
             <div className="files-column">
                 <DropZone onDrop={handleDrop} disabled={isDragging} />
-
-                <div className={'files-list'}>
-                    {files.map(file => {
-                        return (
-                            <FileItem
-                                id={file.id}
-                                key={file.id}
-                                name={file.name}
-                                size={file.size}
-                                status={file.status}
-                                type={<FileType id={file.id} type={file.type} onDelete={deleteType} />}
-                                loaded={file.loaded}
-                                isDragging={isDragging}
-                                onDrop={e => {
-                                    const droppedType = e.dataTransfer.getData('fileType');
-                                    const updated = files.map(f => {
-                                        if (f.id === file.id) {
-                                            return {
-                                                ...f,
-                                                type: droppedType,
-                                            };
-                                        }
-                                        return f;
-                                    });
-                                    setFiles(updated);
-                                }}
-                                onDelete={deleteFile}
-                            />
-                        );
-                    })}
-                </div>
+                <FilesList
+                    files={files}
+                    isDragging={isDragging}
+                    onAddType={setFiles}
+                    onDeleteFile={deleteFile}
+                    onDeleteType={deleteType}
+                />
             </div>
             <div className="suggest-column">
                 <SuggestList
