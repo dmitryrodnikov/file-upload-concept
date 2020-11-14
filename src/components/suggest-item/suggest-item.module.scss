@@ -1,15 +1,22 @@
+:root {
+  --tag-color: #3448b1;
+  --tag-color_hover: #335cd2;
+  --tag-border-radius: 10px;
+}
+
 .item {
   position: relative;
-  padding: 8px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  background-color: #3448b1;
+  display: inline-block;
+  padding: 8px 14px;
+  margin: 10px 10px 0 0;
+  border-radius: var(--tag-border-radius);
+  background-color: var(--tag-color);
   color: #fff;
   cursor: grab;
   transition: transform 200ms ease-in-out;
 
   &:hover {
-    background-color: #335cd2;
+    background-color: var(--tag-color_hover);
     transform: translate(-2px, -2px);
     
     .shadow {
@@ -24,7 +31,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  border-radius: 4px;
+  border-radius: var(--tag-border-radius);
   box-shadow: 0 4px 10px 0 #00000033;
   opacity: 0;
   transition: opacity 200ms ease-in-out;
@@ -34,8 +41,8 @@
   position: absolute;
   display: inline-block;
   left: -9999px;
-  background-color: #335cd2;
-  color: white;
+  background-color: var(--tag-color_hover);
+  color: #fff;
   padding: 8px;
-  border-radius: 8px;
+  border-radius: var(--tag-border-radius);
 }
