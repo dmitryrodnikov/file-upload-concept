@@ -1,0 +1,128 @@
+.file {
+    border: 2px solid #ffffff;
+    //background-color: #ffffff33;
+    margin-top: 10px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    min-height: 60px;
+    transition: 200ms;
+    position: relative;
+    overflow: hidden;
+}
+
+.dataContainer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 8px 16px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.dataContainer > * {
+    pointer-events: none;
+}
+
+.data {
+    display: flex;
+    z-index: 10;
+}
+
+.fileData {
+    overflow: hidden;
+    margin-right: 20px;
+    pointer-events: none;
+}
+
+.fileName {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    color: #424356;
+}
+
+.fileMeta {
+    display: flex;
+    align-items: baseline;
+    font-size: 13px;
+    line-height: 20px;
+    color: #9ea1af;
+    margin-top: 4px;
+}
+
+.size {
+    margin-right: 8px;
+}
+
+.loaded {
+    margin-right: 8px;
+}
+
+.controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.delete {
+    opacity: 0.3;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: #00000033;
+    transition: opacity 100ms ease-in-out;
+    cursor: pointer;
+    pointer-events: initial;
+
+    svg {
+        width: 8px;
+        height: 8px;
+        fill: black;
+    }
+}
+
+.file .delete:hover {
+    opacity: 1;
+}
+
+.progressBar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: transform 400ms ease-in-out;
+    background-color: #fff;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.dragging {
+    &.file {
+        border-color: #ffffffaa;
+    }
+    
+    .delete {
+        display: none;
+    }
+
+    .progressBar {
+        background-color: #ffffff33;
+    }
+}
+
+
+.dragHover {
+    &.file {
+        border-color: #fff;
+        background-color: #ffffff66;
+    }
+
+    .progressBar {
+        background-color: white;
+    }
+}
