@@ -12,10 +12,29 @@ interface AppFileData {
     status: FileStatus;
     size: number;
     loaded?: number;
-    type?: string;
+    type?: FileTypes;
 }
 
-const metaData = ['Паспорт', 'СНИЛС', 'Договор', 'Доверенность'];
+export enum FileTypes {
+    passport = 'passport',
+    snils = 'snils',
+    contract = 'contract',
+    legal = 'legal',
+}
+
+export const FILE_TYPE_DICTIONARY = {
+    [FileTypes.passport]: 'Паспорт',
+    [FileTypes.snils]: 'Снилс',
+    [FileTypes.contract]: 'Договор',
+    [FileTypes.legal]: 'Доверенность',
+};
+
+const metaData = [
+    { label: FILE_TYPE_DICTIONARY[FileTypes.passport], data: FileTypes.passport, amount: 2 },
+    { label: FILE_TYPE_DICTIONARY[FileTypes.snils], data: FileTypes.snils, amount: 2 },
+    { label: FILE_TYPE_DICTIONARY[FileTypes.contract], data: FileTypes.contract, amount: 1 },
+    { label: FILE_TYPE_DICTIONARY[FileTypes.legal], data: FileTypes.legal, amount: 1 },
+];
 
 function App() {
     const [isDragging, setDragging] = useState(false);

@@ -2,7 +2,13 @@ import React, { useCallback } from 'react';
 import styles from './file-type.module.scss';
 import { ReactComponent as CrossIcon } from '../../assets/icon-cross.svg';
 
-export const FileType = ({ id, type, onDelete }: { id: string; type?: string; onDelete: (id: string) => void }) => {
+interface FileTypeProps {
+    id: string;
+    type?: string;
+    onDelete: (id: string) => void;
+}
+
+export const FileType = ({ id, type, onDelete }: FileTypeProps) => {
     const handleDelete = useCallback(() => {
         onDelete(id);
     }, [onDelete, id]);

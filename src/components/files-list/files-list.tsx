@@ -3,6 +3,7 @@ import { FileItem } from '../file-item/file-item';
 import { FileType } from '../file-type/file-type';
 import { FileStatus } from '../../hooks/use-file-upload';
 import styles from './files-list.module.scss';
+import { FILE_TYPE_DICTIONARY, FileTypes } from '../../App';
 
 interface FileData {
     id: string;
@@ -10,7 +11,7 @@ interface FileData {
     status: FileStatus;
     size: number;
     loaded?: number;
-    type?: string;
+    type?: FileTypes;
 }
 
 interface FileListProps {
@@ -32,11 +33,17 @@ export const FilesList = ({ files, isDragging, onDeleteFile, onDeleteType, onAdd
                         name={file.name}
                         size={file.size}
                         status={file.status}
-                        type={<FileType id={file.id} type={file.type} onDelete={onDeleteType} />}
+                        type={
+                            <FileType
+                                id={file.id}
+                                type={file.type ? FILE_TYPE_DICTIONARY[file.type] : undefined}
+                                onDelete={onDeleteType}
+                            />
+                        }
                         loaded={file.loaded}
                         isDragging={isDragging}
                         onDrop={e => {
-                            const droppedType = e.dataTransfer.getData('fileType');
+                            const droppedType = e.dataTransfer.getData('fileType') as FileTypes;
                             const updated = files.map(f => {
                                 if (f.id === file.id) {
                                     return {
