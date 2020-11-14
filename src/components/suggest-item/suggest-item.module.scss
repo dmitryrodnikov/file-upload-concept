@@ -31,6 +31,9 @@
 }
 
 .ghost {
+  position: absolute;
+  display: inline-block;
+  left: -9999px;
   background-color: #335cd2;
   color: white;
   padding: 8px;

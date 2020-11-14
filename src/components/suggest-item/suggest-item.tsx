@@ -16,9 +16,6 @@ export const SuggestItem = ({ label, data, onDragStart, onDragEnd }: SuggestItem
             const ghost = document.createElement('div');
             ghost.id = GHOST_ID;
             ghost.innerText = label;
-            ghost.style.display = 'inline-block';
-            ghost.style.position = 'absolute';
-            ghost.style.left = '-9999px';
             ghost.className = styles.ghost;
             document.body.appendChild(ghost);
 
