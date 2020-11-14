@@ -23,10 +23,3 @@
     border: 1px solid tomato;
     margin-top: 5px;
 }
-
-.ghost {
-    background-color: tomato;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-}

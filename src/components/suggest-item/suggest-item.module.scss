@@ -1,0 +1,38 @@
+.item {
+  position: relative;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  background-color: #3448b1;
+  color: #fff;
+  cursor: grab;
+  transition: transform 200ms ease-in-out;
+
+  &:hover {
+    background-color: #335cd2;
+    transform: translate(-2px, -2px);
+    
+    .shadow {
+      opacity: 1;
+    }
+  }
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px 0 #00000033;
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+.ghost {
+  background-color: #335cd2;
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+}

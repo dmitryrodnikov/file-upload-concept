@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from './suggest-list.module.css';
+import styles from './suggest-list.module.scss';
+import { SuggestItem } from '../suggest-item/suggest-item';
 
 interface SuggestListProps {
     items: any[];
@@ -13,36 +14,7 @@ export const SuggestList = ({ items, onDragStart, onDragEnd }: SuggestListProps)
             <div className={styles.title}>Drag type to appropriate file</div>
             {items.map((data, index) => {
                 return (
-                    <div
-                        key={index}
-                        className={styles.item}
-                        draggable
-                        onDragStart={e => {
-                            console.log('START', e);
-                            // @ts-ignore
-                            console.log('START this', this);
-                            const ghost = document.createElement('div');
-                            ghost.id = 'ghost';
-                            ghost.innerText = data;
-                            ghost.style.display = 'inline-block';
-                            ghost.style.position = 'absolute';
-                            ghost.style.left = '-9999px';
-                            ghost.className = 'ghost';
-                            document.body.appendChild(ghost);
-                            e.dataTransfer.setData('fileType', data);
-                            console.log(ghost.getBoundingClientRect());
-                            const xOffset = ghost.getBoundingClientRect().width / 2;
-                            e.dataTransfer.setDragImage(ghost, xOffset, 40);
-                            onDragStart();
-                        }}
-                        onDragEnd={e => {
-                            console.log('DRAG END', e);
-                            document.getElementById('ghost')?.remove();
-                            onDragEnd();
-                        }}
-                    >
-                        {data}
-                    </div>
+                    <SuggestItem key={index} data={data} label={data} onDragStart={onDragStart} onDragEnd={onDragEnd} />
                 );
             })}
         </div>
