@@ -12,12 +12,13 @@ export const SuggestList = ({ items, onDragStart, onDragEnd }: SuggestListProps)
     return (
         <div className={styles.list}>
             <div className={styles.title}>Drag type to appropriate file</div>
-            {items.map(({ data, label }, index) => {
+            {items.map(({ data, label, amount }, index) => {
                 return (
                     <SuggestItem
                         key={index}
                         data={data}
                         label={label}
+                        amount={amount}
                         onDragStart={onDragStart}
                         onDragEnd={onDragEnd}
                     />

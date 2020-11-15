@@ -21,6 +21,20 @@
   }
 }
 
+.disabled {
+  &.item {
+    cursor: not-allowed;
+    background-color: #00000022;
+    
+    &:hover {
+      transform: none;
+      .shadow {
+        opacity: 0;
+      }
+    }
+  }
+  
+}
 .shadow {
   position: absolute;
   top: 0;

@@ -18,7 +18,7 @@ interface FileListProps {
     files: FileData[];
     isDragging: boolean;
     onDeleteFile: (id: string) => void;
-    onDeleteType: (id: string) => void;
+    onDeleteType: (id: string, type?: FileTypes) => void;
     onAddType: (data: FileData[]) => void;
 }
 
@@ -33,13 +33,7 @@ export const FilesList = ({ files, isDragging, onDeleteFile, onDeleteType, onAdd
                         name={file.name}
                         size={file.size}
                         status={file.status}
-                        type={
-                            <FileType
-                                id={file.id}
-                                type={file.type ? FILE_TYPE_DICTIONARY[file.type] : undefined}
-                                onDelete={onDeleteType}
-                            />
-                        }
+                        type={<FileType id={file.id} type={file.type} onDelete={onDeleteType} />}
                         loaded={file.loaded}
                         isDragging={isDragging}
                         onDrop={e => {

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import './App.css';
 import { FileStatus, useFileUpload } from './hooks/use-file-upload';
 import axios from 'axios';
@@ -29,16 +29,25 @@ export const FILE_TYPE_DICTIONARY = {
     [FileTypes.legal]: 'Доверенность',
 };
 
-const metaData = [
-    { label: FILE_TYPE_DICTIONARY[FileTypes.passport], data: FileTypes.passport, amount: 2 },
-    { label: FILE_TYPE_DICTIONARY[FileTypes.snils], data: FileTypes.snils, amount: 2 },
-    { label: FILE_TYPE_DICTIONARY[FileTypes.contract], data: FileTypes.contract, amount: 1 },
-    { label: FILE_TYPE_DICTIONARY[FileTypes.legal], data: FileTypes.legal, amount: 1 },
-];
+const initialSuggestState = {
+    [FileTypes.passport]: 2,
+    [FileTypes.snils]: 1,
+    [FileTypes.contract]: 2,
+    [FileTypes.legal]: 2,
+};
 
 function App() {
     const [isDragging, setDragging] = useState(false);
     const [files, setFiles] = useState<AppFileData[]>([]);
+    const [suggestions, setSuggestions] = useState<Record<FileTypes, number>>(initialSuggestState);
+
+    const suggestionsView = useMemo(() => {
+        return Object.entries(suggestions).map(([key, val]) => ({
+            label: FILE_TYPE_DICTIONARY[key as FileTypes],
+            data: key as FileTypes,
+            amount: val,
+        }));
+    }, [suggestions]);
 
     const handleUploadProgress = useCallback((e, generatedId) => {
         setFiles(files => {
@@ -54,21 +63,59 @@ function App() {
         });
     }, []);
 
-    const deleteFile = useCallback((id: string) => {
-        setFiles(files => {
-            return files.filter(file => file.id !== id);
-        });
-    }, []);
+    const deleteFile = useCallback(
+        (id: string) => {
+            const updatedFiles = files.filter(file => file.id !== id);
+            const updatedSuggestions = updatedFiles.reduce((acc, item) => {
+                if (!item.type) {
+                    return acc;
+                }
+                return { ...acc, [item.type]: acc[item.type] - 1 };
+            }, initialSuggestState);
+            setFiles(updatedFiles);
+            setSuggestions(updatedSuggestions);
+        },
+        [files],
+    );
 
-    const deleteType = useCallback((id: string) => {
-        setFiles(files => {
-            return files.map(file => {
+    const deleteType = useCallback(
+        (id: string, type?: FileTypes) => {
+            const updatedFiles = files.map(file => {
                 if (file.id === id) {
                     return { ...file, type: undefined };
                 }
                 return file;
             });
-        });
+
+            const updatedSuggestions = updatedFiles.reduce<Record<FileTypes, number>>((acc, item) => {
+                if (type && item.id === id) {
+                    return {
+                        ...acc,
+                        [type]: acc[type] + 1,
+                    };
+                }
+                return acc;
+            }, suggestions);
+
+            setFiles(updatedFiles);
+            setSuggestions(updatedSuggestions);
+        },
+        [files, suggestions],
+    );
+
+    const addType = useCallback((data: AppFileData[]) => {
+        const updatedSuggestions = data.reduce<Record<FileTypes, number>>((acc, item) => {
+            if (item.type === undefined) {
+                return acc;
+            }
+            return {
+                ...acc,
+                [item.type]: acc[item.type] - 1,
+            };
+        }, initialSuggestState);
+
+        setFiles(data);
+        setSuggestions(updatedSuggestions);
     }, []);
 
     const { handleDrop } = useFileUpload({
@@ -110,14 +157,14 @@ function App() {
                 <FilesList
                     files={files}
                     isDragging={isDragging}
-                    onAddType={setFiles}
+                    onAddType={addType}
                     onDeleteFile={deleteFile}
                     onDeleteType={deleteType}
                 />
             </div>
             <div className="suggest-column">
                 <SuggestList
-                    items={metaData}
+                    items={suggestionsView}
                     onDragEnd={() => setDragging(false)}
                     onDragStart={() => setDragging(true)}
                 />

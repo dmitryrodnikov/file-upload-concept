@@ -1,16 +1,17 @@
 import React, { useCallback } from 'react';
 import styles from './suggest-item.module.scss';
-
+import cn from 'classnames';
 interface SuggestItemProps {
     label: string;
     data: string;
+    amount?: number;
     onDragStart: VoidFunction;
     onDragEnd: VoidFunction;
 }
 
 const GHOST_ID = 'ghost';
 
-export const SuggestItem = ({ label, data, onDragStart, onDragEnd }: SuggestItemProps) => {
+export const SuggestItem = ({ label, data, amount, onDragStart, onDragEnd }: SuggestItemProps) => {
     const handleDragStart = useCallback(
         (e: React.DragEvent<HTMLDivElement>) => {
             const ghost = document.createElement('div');
@@ -35,8 +36,15 @@ export const SuggestItem = ({ label, data, onDragStart, onDragEnd }: SuggestItem
     }, [onDragEnd]);
 
     return (
-        <div className={styles.item} draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-            <div>{label}</div>
+        <div
+            className={cn(styles.item, { [styles.disabled]: !amount })}
+            draggable={Boolean(amount)}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+        >
+            <div>
+                {label}, {amount}
+            </div>
             <div className={styles.shadow} />
         </div>
     );
