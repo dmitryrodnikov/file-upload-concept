@@ -24,6 +24,7 @@
 .disabled {
   &.item {
     cursor: not-allowed;
+    color: #00000044;
     background-color: #00000022;
     
     &:hover {
@@ -32,9 +33,38 @@
         opacity: 0;
       }
     }
+
+    .count {
+      background-color: #8ad49a;
+    }
   }
   
 }
+
+.content {
+  display: flex;
+  align-items: center;
+}
+
+.count {
+  margin-left: 8px;
+  height: 24px;
+  min-width: 24px;
+  padding: 0 2px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  background-color: #ffffff33;
+  
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: white;
+  }
+}
+
 .shadow {
   position: absolute;
   top: 0;

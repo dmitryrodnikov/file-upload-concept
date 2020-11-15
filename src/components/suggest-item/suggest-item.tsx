@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import styles from './suggest-item.module.scss';
 import cn from 'classnames';
+import { ReactComponent as CheckIcon } from '../../assets/icon-check.svg';
+
 interface SuggestItemProps {
     label: string;
     data: string;
@@ -42,8 +44,9 @@ export const SuggestItem = ({ label, data, amount, onDragStart, onDragEnd }: Sug
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
         >
-            <div>
-                {label}, {amount}
+            <div className={styles.content}>
+                <div>{label}</div>
+                <div className={styles.count}>{amount ? amount : <CheckIcon />}</div>
             </div>
             <div className={styles.shadow} />
         </div>
