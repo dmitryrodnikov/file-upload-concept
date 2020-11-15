@@ -9,7 +9,6 @@ interface DropZoneProps {
 }
 
 export const DropZone = ({ onDrop, disabled }: DropZoneProps) => {
-    console.log(disabled);
     const { getInputProps, getRootProps } = useDropzone({ onDrop, disabled });
 
     return (
