@@ -5,6 +5,7 @@ export interface UploadProps {
     uploadService: FileUploadService;
     onFileAdd?: (file: File, id: string) => void;
     onFileUploaded?: (fileData: FileData, id: string) => void;
+    onFileUploadError?: (error: string, id: string) => void;
     onFileReject?: (error: DropzoneFileError, index: number, arr: any) => void;
 }
 
@@ -44,7 +45,13 @@ export interface DropzoneFileRejection {
     errors: DropzoneFileError[];
 }
 
-export function useFileUpload({ uploadService, onFileAdd, onFileUploaded, onFileReject }: UploadProps) {
+export function useFileUpload({
+    uploadService,
+    onFileAdd,
+    onFileUploaded,
+    onFileUploadError,
+    onFileReject,
+}: UploadProps) {
     const handleDropReject = useCallback(
         (rejections: DropzoneFileRejection[]) => {
             if (onFileReject) {
@@ -75,16 +82,15 @@ export function useFileUpload({ uploadService, onFileAdd, onFileUploaded, onFile
                     .then(response => {
                         fileData.status = FileStatus.UPLOADED;
                         fileData.fileId = response.id || generatedId;
-                    })
-                    .catch(() => {
-                        fileData.status = FileStatus.ERROR;
-                    })
-                    .finally(() => {
                         onFileUploaded?.(fileData, generatedId);
+                    })
+                    .catch(e => {
+                        fileData.status = FileStatus.ERROR;
+                        onFileUploadError?.(e, generatedId);
                     });
             });
         },
-        [onFileAdd, onFileUploaded, uploadService],
+        [onFileAdd, onFileUploaded, onFileUploadError, uploadService],
     );
 
     return { handleDrop, handleDropReject };

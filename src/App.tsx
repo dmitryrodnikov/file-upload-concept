@@ -148,6 +148,9 @@ function App() {
                 });
             });
         },
+        onFileUploadError: (error, generatedId) => {
+            console.log(error, generatedId);
+        },
     });
 
     return (
