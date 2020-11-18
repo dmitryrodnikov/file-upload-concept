@@ -10,9 +10,15 @@
     color: #1a65cc;
     border: 2px dashed #4886d8;
     margin-bottom: 24px;
-    transition: 200ms;
+    transition-property: border, color;
+    transition-duration: 200ms;
     cursor: pointer;
     outline: none;
+    
+    &:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+    }
 }
 
 .disabled {
