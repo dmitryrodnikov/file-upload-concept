@@ -4,8 +4,8 @@
   position: relative;
   display: inline-block;
   padding: 8px 14px;
-  margin: 10px 10px 0 0;
-  border-radius: var(--tag-border-radius);
+  margin: var(--item-padding) var(--item-padding) 0 0;
+  border-radius: var(--item-border-radius);
   background-color: var(--tag-color);
   color: #fff;
   cursor: grab;
@@ -25,7 +25,7 @@
   &.item {
     cursor: not-allowed;
     color: #00000044;
-    background-color: #00000022;
+    background-color: var(--tag-color_disabled);
     
     &:hover {
       transform: none;
@@ -35,7 +35,7 @@
     }
 
     .count {
-      background-color: #8ad49a;
+      background-color: var(--success-color);
     }
   }
   
@@ -71,7 +71,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  border-radius: var(--tag-border-radius);
+  border-radius: var(--item-border-radius);
   box-shadow: var(--tag-box-shadow);
   opacity: 0;
   transition: opacity 200ms ease-in-out;
@@ -84,5 +84,5 @@
   background-color: var(--tag-color_hover);
   color: #fff;
   padding: 8px;
-  border-radius: var(--tag-border-radius);
+  border-radius: var(--item-border-radius);
 }

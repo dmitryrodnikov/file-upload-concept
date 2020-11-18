@@ -157,13 +157,15 @@ function App() {
         <div className="container">
             <div className="files-column">
                 <DropZone onDrop={handleDrop} disabled={isDragging} />
-                <FilesList
-                    files={files}
-                    isDragging={isDragging}
-                    onAddType={addType}
-                    onDeleteFile={deleteFile}
-                    onDeleteType={deleteType}
-                />
+                <div className="files">
+                    <FilesList
+                        files={files}
+                        isDragging={isDragging}
+                        onAddType={addType}
+                        onDeleteFile={deleteFile}
+                        onDeleteType={deleteType}
+                    />
+                </div>
             </div>
             <div className="suggest-column">
                 <SuggestList

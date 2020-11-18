@@ -1,6 +1,17 @@
 :root {
-  --tag-color: #3448b1;
+  --primary-color: #3448b1;
+  --primary-color-alpha: #3448b122;
+  --success-color: #8ad49a;
+  
+  --item-padding: 10px;
+  --item-border-radius: 8px;
+  
+  --block-border-radius: 12px;
+  
+  --tag-color: var(--primary-color);
   --tag-color_hover: #335cd2;
+  --tag-color_disabled: var(--primary-color-alpha);
   --tag-box-shadow: 2px 4px 10px 0 #335cd266;
-  --tag-border-radius: 10px;
+  
+  --file-list-color: var(--primary-color-alpha);
 }

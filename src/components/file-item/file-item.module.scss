@@ -1,15 +1,20 @@
+@import "../../variables";
+
 .file {
     background-color: #ffffff33;
-    margin-top: 10px;
-    border-radius: 4px;
+    margin-top: var(--item-padding);
+    border-radius: var(--item-border-radius);
     box-sizing: border-box;
     min-height: 60px;
-    transition: 200ms;
     position: relative;
     overflow: hidden;
 
     .delete:hover {
         opacity: 1;
+    }
+    
+    &:first-child {
+        margin-top: 0;
     }
 }
 
@@ -94,17 +99,13 @@
     right: 0;
     top: 0;
     bottom: 0;
-    transition: transform 400ms ease-in-out;
+    transition: transform 400ms ease-in-out, background-color 100ms;
     background-color: #fff;
     z-index: 0;
     pointer-events: none;
 }
 
 .dragging {
-    &.file {
-        border-color: #ffffffaa;
-    }
-    
     .delete {
         display: none;
     }
@@ -117,7 +118,6 @@
 
 .dragHover {
     &.file {
-        border-color: #fff;
         background-color: #ffffff66;
     }
 

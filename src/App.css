@@ -4,12 +4,17 @@
 }
 
 .files-column {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     width: 70%;
-    padding: 32px;
-    border-radius: 12px;
     margin-right: 24px;
-    background-color: #cfd9ed;
+}
+
+.files {
+    padding: 10px;
+    border-radius: var(--block-border-radius);
+    background-color: var(--file-list-color);
 }
 
 .suggest-column {
