@@ -1,0 +1,24 @@
+@import "../../variables";
+
+.container {
+  display: flex;
+  padding: 40px;
+}
+
+.filesColumn {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 70%;
+  margin-right: 24px;
+}
+
+.files {
+  padding: 10px;
+  border-radius: var(--block-border-radius);
+  background-color: var(--file-list-color);
+}
+
+.suggestColumn {
+  width: 30%;
+}

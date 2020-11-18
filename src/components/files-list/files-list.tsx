@@ -3,7 +3,7 @@ import { FileItem } from '../file-item/file-item';
 import { FileType } from '../file-type/file-type';
 import { FileStatus } from '../../hooks/use-file-upload';
 import styles from './files-list.module.scss';
-import { FILE_TYPE_DICTIONARY, FileTypes } from '../../App';
+import { FileTypes } from '../form/form';
 
 interface FileData {
     id: string;

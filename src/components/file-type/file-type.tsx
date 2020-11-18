@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styles from './file-type.module.scss';
 import { ReactComponent as CrossIcon } from '../../assets/icon-cross.svg';
-import { FILE_TYPE_DICTIONARY, FileTypes } from '../../App';
+import { FILE_TYPE_DICTIONARY, FileTypes } from '../form/form';
 
 interface FileTypeProps {
     id: string;
