@@ -5,6 +5,7 @@ import styles from './App.module.scss';
 const App = () => {
     return (
         <div className={styles.main}>
+            <h1>Application form</h1>
             <Form />
         </div>
     );
