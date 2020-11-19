@@ -5,6 +5,7 @@ import { DropZone } from '../dropzone/dropzone';
 import { SuggestList } from '../suggest-list/suggest-list';
 import { FilesList } from '../files-list/files-list';
 import styles from './form.module.scss';
+import { Button } from '../button/button';
 
 interface AppFileData {
     id: string;
@@ -47,6 +48,10 @@ export const Form = () => {
             data: key as FileTypes,
             amount: val,
         }));
+    }, [suggestions]);
+
+    const isSomeSuggestionLeft = useMemo(() => {
+        return Object.values(suggestions).some(item => item > 0);
     }, [suggestions]);
 
     const handleUploadProgress = useCallback((e, generatedId) => {
@@ -154,27 +159,32 @@ export const Form = () => {
     });
 
     return (
-        <div className={styles.container}>
-            <div className={styles.filesColumn}>
-                <DropZone onDrop={handleDrop} disabled={isDragging} />
-                {files.length > 0 && (
-                    <div className={styles.files}>
-                        <FilesList
-                            files={files}
-                            isDragging={isDragging}
-                            onAddType={addType}
-                            onDeleteFile={deleteFile}
-                            onDeleteType={deleteType}
-                        />
-                    </div>
-                )}
+        <div>
+            <div className={styles.container}>
+                <div className={styles.filesColumn}>
+                    <DropZone onDrop={handleDrop} disabled={isDragging} />
+                    {files.length > 0 && (
+                        <div className={styles.files}>
+                            <FilesList
+                                files={files}
+                                isDragging={isDragging}
+                                onAddType={addType}
+                                onDeleteFile={deleteFile}
+                                onDeleteType={deleteType}
+                            />
+                        </div>
+                    )}
+                </div>
+                <div className={styles.suggestColumn}>
+                    <SuggestList
+                        items={suggestionsView}
+                        onDragEnd={() => setDragging(false)}
+                        onDragStart={() => setDragging(true)}
+                    />
+                </div>
             </div>
-            <div className={styles.suggestColumn}>
-                <SuggestList
-                    items={suggestionsView}
-                    onDragEnd={() => setDragging(false)}
-                    onDragStart={() => setDragging(true)}
-                />
+            <div className={styles.footer}>
+                <Button disabled={isSomeSuggestionLeft}>Next</Button>
             </div>
         </div>
     );

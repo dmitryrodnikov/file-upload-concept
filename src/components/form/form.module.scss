@@ -2,6 +2,7 @@
 
 .container {
   display: flex;
+  min-height: 400px;
 }
 
 .filesColumn {
@@ -20,4 +21,12 @@
 
 .suggestColumn {
   width: 30%;
+}
+
+.footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  position: sticky;
+  bottom: 40px;
 }
