@@ -38,16 +38,18 @@ export const FilesList = ({ files, isDragging, onDeleteFile, onDeleteType, onAdd
                         isDragging={isDragging}
                         onDrop={e => {
                             const droppedType = e.dataTransfer.getData('fileType') as FileTypes;
-                            const updated = files.map(f => {
-                                if (f.id === file.id) {
-                                    return {
-                                        ...f,
-                                        type: droppedType,
-                                    };
-                                }
-                                return f;
-                            });
-                            onAddType(updated);
+                            if (droppedType) {
+                                const updated = files.map(f => {
+                                    if (f.id === file.id) {
+                                        return {
+                                            ...f,
+                                            type: droppedType,
+                                        };
+                                    }
+                                    return f;
+                                });
+                                onAddType(updated);
+                            }
                         }}
                         onDelete={onDeleteFile}
                     />
