@@ -1,0 +1,19 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  padding: 16px 32px;
+  border-radius: var(--item-border-radius);
+  transition: 300ms ease-in-out;
+  
+  cursor: pointer;
+  color: white;
+  background-color: var(--success-color);
+  box-shadow: 2px 4px 10px 0 var(--success-color);
+  
+  &.disabled {
+    cursor: not-allowed;
+    color: #00000044;
+    background-color: var(--primary-color-alpha);
+    box-shadow: none;
+  }
+}
