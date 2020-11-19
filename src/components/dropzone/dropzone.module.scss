@@ -1,5 +1,3 @@
-@import "../../variables";
-
 .dropZone {
     display: flex;
     align-items: center;
@@ -28,6 +26,6 @@
 
 .dragging {
     border-style: solid;
-    border-color: var(--success-color);
+    border-color: var(--success-color_alpha);
     color: var(--success-color);
 }
