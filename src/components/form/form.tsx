@@ -158,6 +158,9 @@ export const Form = () => {
         },
     });
 
+    const handleDragStart = useCallback(() => setDragging(true), []);
+    const handleDragEnd = useCallback(() => setDragging(false), []);
+
     return (
         <div>
             <div className={styles.container}>
@@ -176,11 +179,7 @@ export const Form = () => {
                     )}
                 </div>
                 <div className={styles.suggestColumn}>
-                    <SuggestList
-                        items={suggestionsView}
-                        onDragEnd={() => setDragging(false)}
-                        onDragStart={() => setDragging(true)}
-                    />
+                    <SuggestList items={suggestionsView} onDragStart={handleDragStart} onDragEnd={handleDragEnd} />
                 </div>
             </div>
             <div className={styles.footer}>
