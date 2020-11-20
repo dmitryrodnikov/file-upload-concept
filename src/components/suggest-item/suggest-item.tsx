@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import styles from './suggest-item.module.scss';
 import cn from 'classnames';
 import { ReactComponent as CheckIcon } from '../../assets/icon-check.svg';
+import { useSpring, animated } from 'react-spring';
 
 interface SuggestItemProps {
     label: string;
@@ -12,6 +13,50 @@ interface SuggestItemProps {
 }
 
 const GHOST_ID = 'ghost';
+
+interface CountProps {
+    amount?: number;
+}
+
+const Count = ({ amount }: CountProps) => {
+    const prevCountRef = useRef(amount);
+    const shouldAnimate = amount !== prevCountRef.current;
+
+    const { x } = useSpring({
+        from: { x: 0 },
+        x: shouldAnimate ? 1 : 0,
+        config: { duration: 400 },
+        delay: 200,
+        reset: true,
+    });
+
+    useEffect(() => {
+        prevCountRef.current = amount;
+    });
+
+    return (
+        <div className={styles.count}>
+            <div className={styles.amount}>{amount ? amount : <CheckIcon />}</div>
+            <animated.div
+                style={{
+                    transform: x
+                        .interpolate({
+                            range: [0, 0.3, 1],
+                            output: [1, 1.8, 1],
+                        })
+                        .interpolate(x => `scale(${x})`),
+                    opacity: x
+                        .interpolate({
+                            range: [0, 0.2, 1],
+                            output: amount ? [0.2, 0.5, 0.2] : [0.5, 0.7, 0.5],
+                        })
+                        .interpolate(x => x),
+                }}
+                className={cn(styles.bg)}
+            />
+        </div>
+    );
+};
 
 export const SuggestItem = ({ label, data, amount, onDragStart, onDragEnd }: SuggestItemProps) => {
     const handleDragStart = useCallback(
@@ -46,7 +91,7 @@ export const SuggestItem = ({ label, data, amount, onDragStart, onDragEnd }: Sug
         >
             <div className={styles.content}>
                 <div>{label}</div>
-                <div className={styles.count}>{amount ? amount : <CheckIcon />}</div>
+                <Count amount={amount} />
             </div>
             <div className={styles.shadow} />
         </div>
