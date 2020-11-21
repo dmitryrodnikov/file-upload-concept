@@ -26,7 +26,6 @@ const Count = ({ amount }: CountProps) => {
         from: { x: 0 },
         x: shouldAnimate ? 1 : 0,
         config: { duration: 400 },
-        delay: 200,
         reset: true,
     });
 
