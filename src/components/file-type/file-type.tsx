@@ -22,6 +22,20 @@ const FileTypeComponent = ({ id, type, onDelete }: FileTypeProps) => {
         reset: true,
     });
 
+    const animateVertical = x
+        .interpolate({
+            range: [0, 1],
+            output: [0, -5],
+        })
+        .interpolate(x => `${x}px`);
+
+    const animateHorizontal = x
+        .interpolate({
+            range: [0, 1],
+            output: [0, -15],
+        })
+        .interpolate(x => `${x}px`);
+
     useEffect(() => {
         prevCountRef.current = type;
     });
@@ -40,12 +54,10 @@ const FileTypeComponent = ({ id, type, onDelete }: FileTypeProps) => {
                 <div className={styles.text}>{FILE_TYPE_DICTIONARY[type]}</div>
                 <animated.div
                     style={{
-                        transform: x
-                            .interpolate({
-                                range: [0, 1],
-                                output: [1, 1.5],
-                            })
-                            .interpolate(x => `scale(${x})`),
+                        top: animateVertical,
+                        bottom: animateVertical,
+                        left: animateHorizontal,
+                        right: animateHorizontal,
                         opacity: x
                             .interpolate({
                                 range: [0, 0, 1],
