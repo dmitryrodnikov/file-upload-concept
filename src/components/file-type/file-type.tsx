@@ -32,7 +32,7 @@ const FileTypeComponent = ({ id, type, onDelete }: FileTypeProps) => {
     const animateHorizontal = x
         .interpolate({
             range: [0, 1],
-            output: [0, -15],
+            output: [-5, -15],
         })
         .interpolate(x => `${x}px`);
 

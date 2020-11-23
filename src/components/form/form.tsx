@@ -21,19 +21,22 @@ export enum FileTypes {
     snils = 'snils',
     contract = 'contract',
     legal = 'legal',
+    application = 'application',
 }
 
 export const FILE_TYPE_DICTIONARY = {
-    [FileTypes.passport]: 'Паспорт',
-    [FileTypes.snils]: 'Снилс',
-    [FileTypes.contract]: 'Договор',
-    [FileTypes.legal]: 'Доверенность',
+    [FileTypes.passport]: 'Identity',
+    [FileTypes.snils]: 'Building plan',
+    [FileTypes.contract]: 'Contract',
+    [FileTypes.legal]: 'Certificate',
+    [FileTypes.application]: 'Application form',
 };
 
 const initialSuggestState = {
+    [FileTypes.application]: 1,
     [FileTypes.passport]: 2,
     [FileTypes.snils]: 1,
-    [FileTypes.contract]: 2,
+    [FileTypes.contract]: 1,
     [FileTypes.legal]: 2,
 };
 
