@@ -57,6 +57,10 @@ export const Form = () => {
         return Object.values(suggestions).some(item => item > 0);
     }, [suggestions]);
 
+    const isSomeFileLoading = useMemo(() => {
+        return files.some(file => file.status === FileStatus.LOADING);
+    }, [files]);
+
     const handleUploadProgress = useCallback((e, generatedId) => {
         setFiles(files => {
             return files.map(f => {
@@ -186,7 +190,7 @@ export const Form = () => {
                 </div>
             </div>
             <div className={styles.footer}>
-                <Button disabled={isSomeSuggestionLeft}>Next</Button>
+                <Button disabled={isSomeSuggestionLeft || isSomeFileLoading}>Next</Button>
             </div>
         </div>
     );
