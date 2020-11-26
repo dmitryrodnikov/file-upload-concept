@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import axios from 'axios';
 import { FileStatus, useFileUpload } from '../../hooks/use-file-upload';
 import { DropZone } from '../dropzone/dropzone';
 import { SuggestList } from '../suggest-list/suggest-list';
@@ -133,10 +132,25 @@ export const Form = () => {
     const { handleDrop } = useFileUpload({
         uploadService: {
             upload: (file, generatedId) => {
-                const data = new FormData();
-                data.append('file', file);
-                return axios.post('http://localhost:5000', data, {
-                    onUploadProgress: e => handleUploadProgress(e, generatedId),
+                // In real world here should be request with uploadProgress callback
+                return new Promise(resolve => {
+                    let loaded = 0;
+                    let total = file.size;
+                    const uploadSpeed = Math.max(total / (Math.random() * 15), 10000);
+                    let timer: number;
+
+                    const fakeUpload = () => {
+                        if (loaded < total) {
+                            loaded = uploadSpeed < total - loaded ? loaded + uploadSpeed : total;
+                            handleUploadProgress({ loaded, total }, generatedId);
+                            timer = window.setTimeout(() => requestAnimationFrame(fakeUpload), 100);
+                        } else {
+                            clearTimeout(timer);
+                            resolve({ id: '' });
+                        }
+                    };
+
+                    fakeUpload();
                 });
             },
         },
